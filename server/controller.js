@@ -33,7 +33,9 @@ exports.userLoginController = async (req, res) => {
         });
     }
     delete user.password;
-    const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+    //const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id}, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+
     res.status(200).json({ token, user });
   } catch (error) {
     res.status(500).json({ message: error.message });
