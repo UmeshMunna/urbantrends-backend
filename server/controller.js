@@ -43,21 +43,27 @@ exports.userLoginController = async (req, res) => {
 };
 
 exports.userSignupController = async (req, res) => {
-
   console.log("EMAIL FOR SIGNUP ###");
   console.log(req.body);
 
-  const password = req.body.password;
+  const { name, mobile, email, address, userType, password } = req.body;
+
+  // Access file data from req.file.buffer
+  const profilePicture = req.file ? req.file.buffer : null;
+
   const saltRounds = 10;
-  const salt = await bcrypt.genSalt(saltRounds);
-  const hashedPassword = await bcrypt.hash(password, salt);
-  req.body.password = hashedPassword;
-  console.log("Hashed Password");
-  console.log(req.body.password);
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  
   try {
-    console.log("SIGNUP DATA --->");
-    console.log(req.body);
-    const user = await userService.userSignupService(req.body);
+    const user = await userService.userSignupService({
+      name,
+      mobile,
+      email,
+      address,
+      userType,
+      password: hashedPassword,
+      profilePicture
+    });
     res.status(201).json(user);
     console.log("SIGNUP SUCCESSFUL...");
   } catch (error) {
