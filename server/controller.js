@@ -45,6 +45,8 @@ exports.userLoginController = async (req, res) => {
 exports.userSignupController = async (req, res) => {
   console.log("EMAIL FOR SIGNUP ###");
   console.log(req.body);
+  console.log(req.file.buffer);
+
 
   const { name, mobile, email, address, userType, password } = req.body;
 
