@@ -1,4 +1,3 @@
-// service.js
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 
@@ -12,6 +11,7 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME
 });
 
+//----- To retrieve all users -----//
 exports.getAllUsers = () => {
   return new Promise((resolve, reject) => {
     pool.query('SELECT * FROM user', (error, results) => {
@@ -27,6 +27,7 @@ exports.getAllUsers = () => {
   });
 };
 
+//----- To handle the user login -----//
 exports.userLoginService = (email) => {
   return new Promise((resolve, reject) => {
     pool.query('SELECT * FROM user WHERE email = ?', [email], (error, results) => {
@@ -40,7 +41,7 @@ exports.userLoginService = (email) => {
 };
 
 
-
+// ----- To handle the user signup -----//
 exports.userSignupService = (userData) => {
   return new Promise((resolve, reject) => {
     const { name, mobile, email, address, profilePicture, userType, password } = userData;

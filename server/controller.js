@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const userService = require('./service');
 
+//----- To retrieve all users -----//
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await userService.getAllUsers();
@@ -11,6 +12,7 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+//----- To handle the user login -----//
 exports.userLoginController = async (req, res) => {
   const { email, password } = req.body;
   console.log("EMAIL FOR LOGIN ###");
@@ -42,6 +44,7 @@ exports.userLoginController = async (req, res) => {
   }
 };
 
+// ----- To handle the user signup -----//
 exports.userSignupController = async (req, res) => {
   console.log("EMAIL FOR SIGNUP ###");
   console.log(req.body);
